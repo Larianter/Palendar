@@ -68,9 +68,27 @@
         justify-content: center;
         align-items: center;
       }
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close-button:hover {
+        color: #ffffff; /* Highlight on hover */
+       }
+
       .popup-content {
+        position: relative;
         background-color: #4a4a4a;
-        padding: 20px;
+        padding: 20px 20px 20px;
+        padding-top: 40px;
         border-radius: 10px;
         text-align: center;
         color: #fff;
@@ -136,6 +154,7 @@
     <!-- Popup Modal -->
     <div class="popup-modal" id="popupModal">
       <div class="popup-content">
+        <button class="close-button" onclick="closePopup()">X</button>
         <h2>Create an Account</h2>
         <input type="text" placeholder="Enter Username" name="new-username" required>
         <input type="password" placeholder="Enter Password" name="new-password" required>
