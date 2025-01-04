@@ -4,19 +4,60 @@
     <style>
       body {
         background-color: #3a3a3a;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
       }
-      h1, h2, label, b {
+      .page-container {
+        text-align: center;
+        width: 100%;
+      }
+      h1 {
         color: #fff;
+        margin-bottom: 20px;
+      }
+      .parent-container {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        gap: 20px; /* Space between columns */
+        width: 80%;
+        max-width: 800px;
+        margin: auto;
+      }
+      .grid-child-element-LogIn, .grid-child-element-Welcome {
+        background-color: #4a4a4a;
+        padding: 20px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px; /* Ensures both are the same size */
+      }
+      .grid-child-element-Welcome {
+        text-align: center;
+      }
+      .welcome-text-container {
+        padding: 10px;
+        border-radius: 5px;
       }
     </style>
     <title>Log In or Create an Account</title>
   </head>
   <body>
-    <h1>Log In or Create an Account</h1>
-    <form action="action_page.php" method="post">
-      <div class="grid-container-element">
-        <h2>Log In</h2>
+    <div class="page-container">
+      <h1>Log In or Create an Account</h1>
+      <div class="parent-container">
+        <!-- Log In Section -->
         <div class="grid-child-element-LogIn">
+          <h2>Log In</h2>
           <label for="uname"><b>Username:</b></label><br>
           <input type="text" placeholder="Enter Username" name="uname" required><br>
           
@@ -29,11 +70,15 @@
           
           <button type="submit">Login</button>
         </div>
+        
+        <!-- Welcome Section -->
         <div class="grid-child-element-Welcome">
-          <label for="welcome"><b>Welcome</b></label>
+          <div class="welcome-text-container">
+            <label for="welcome"><b>Welcome</b></label>
+          </div>
         </div>
       </div>
-    </form>
+    </div>
   </body>
 </html>
 
