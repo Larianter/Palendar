@@ -75,16 +75,19 @@
         text-align: center;
         color: #fff;
         width: 300px;
+        box-sizing: border-box;
       }
       .popup-content h2 {
         margin-bottom: 20px;
       }
       .popup-content input {
-        width: 100%;
+         width: calc(100% - 20px);
         padding: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         border: none;
         border-radius: 5px;
+         box-sizing: border-box;
+         max-width: 280px;
       }
       .popup-content button {
         padding: 10px 20px;
@@ -93,6 +96,7 @@
         background-color: #3a3a3a;
         color: #fff;
         cursor: pointer;
+        margin-top: 10px;
       }
       .popup-content button:hover {
         background-color: #555;
