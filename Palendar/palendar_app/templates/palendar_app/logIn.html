@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html>
-<body style="background-color:#3a3a3a;"></bodystyle>
-
-    <h2 style="color: #FFFF;">Log In</h2>
+  <head>
+    <style>
+      body {
+        background-color: #3a3a3a;
+      }
+      h1, h2, label, b {
+        color: #fff;
+      }
+    </style>
+    <title>Log In or Create an Account</title>
+  </head>
+  <body>
+    <h1>Log In or Create an Account</h1>
     <form action="action_page.php" method="post">
-  
-    <div class="parentcontainer"> 
-      <div class="LogIn"></div> <label for="uname"><b style="color: #FFFF;">Username:</b></label> <br>
-            <input type="text" placeholder="Enter Username" name="uname" required> <br>
-            <label for="psw"><b style="color: #FFFF;">Password:</b></label> <br>
-            <input type="password" placeholder="Enter Password" name="psw" required> <br>
-  
+      <div class="grid-container-element">
+        <h2>Log In</h2>
+        <div class="grid-child-element-LogIn">
+          <label for="uname"><b>Username:</b></label><br>
+          <input type="text" placeholder="Enter Username" name="uname" required><br>
+          
+          <label for="psw"><b>Password:</b></label><br>
+          <input type="password" placeholder="Enter Password" name="psw" required><br>
+          
+          <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
-            <button type="submit">Login</button>
-            <label> </div>
-  </form>
-<html>
-<body>
+          </label><br>
+          
+          <button type="submit">Login</button>
+        </div>
+        <div class="grid-child-element-Welcome">
+          <label for="welcome"><b>Welcome</b></label>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
 
