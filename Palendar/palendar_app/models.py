@@ -3,12 +3,12 @@ from django.db import models
 # Create your models here.
 class Users(models.Model):
     #stores user account data
-    userID = models.IntegerField(primary_key=True)
+    userID = models.AutoField(primary_key=True)
     account_name = models.CharField(max_length=24)
-    email = models.CharField(max_length=64)
+    email = models.CharField(max_length=64, null=True, blank=True)
     password = models.CharField(max_length=12)
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
+    first_name = models.CharField(max_length=64, null=True, blank=True)
+    last_name = models.CharField(max_length=64, null=True, blank=True)
 
 class User_Calendar(models.Model):
     #stores users own events
