@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Calendar</title>
+    <style>
+      body {
+        background-color: #3a3a3a;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #3a3a3a; /* Universal text color */
+      }
+      .page-container {
+        text-align: center;
+        width: 100%;
+      }
+      h1 {
+        margin-bottom: 20px;
+      }
+      .parent-container {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        border-radius: 10px;
+        width: 70%;
+        max-width: 600px;
+        margin: auto;
+      }
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 15px;
+        font-size: 16px;
+        color: #fff;
+      }
+      .calendar-header button {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      .calendar-header button:hover {
+        color: #fff;
+      }
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        padding: 10px;
+        color: #fff;
+      }
+      .calendar-day {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #4a4a4a;
+        padding: 5px;
+        min-height: 60px;
+        font-size: 12px;
+        border-radius: 3px;
+        background-color: #4a4a4a;
+      }
+      .calendar-day:hover {
+        background-color: #555;
+        cursor: pointer;
+      }
+      .day-names {
+        font-weight: bold;
+        font-size: 12px;
+        color: #fff;
+      }
+      .calendar-day.inactive {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      .header {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: fixed; 
+        top: 0;
+        z-index: 10;
+        font-size: 18px;
+       }
+
+       #username {
+        font-size: 16px;
+        font-weight: bold;
+        padding-left: 10px;
+       }   
+
+        .dropdown {
+      position: relative;
+     display: inline-block;
+     }
+
+        .dropbtn { /* this is just the haitari button */
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        padding-right: 10px;
+        cursor: pointer;
+     } 
+
+        .dropdown-content { /* overall dropdown look */
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #4a4a4a;
+        border-radius: 5px;
+        z-index: 20;
+        width: 100px;
+     }
+
+        .dropdown-content a { /* dropdown buttons, both Log Out and Home */
+        color: #fff;
+        padding: 8px 12px;
+        text-decoration: none;
+        display: block;
+     }
+
+       .dropdown-content a:hover {
+       background-color: #555;
+     }
+
+       .dropdown:hover .dropdown-content {
+       display: block;
+     }
+
+    </style>
+  </head>
+  <body>
+    <div class="header">
+        <span id="username">User123</span> <!-- not sure if this works like I want it to -->
+        <div class="dropdown">
+          <button class="dropbtn">☰</button>
+          <div class="dropdown-content">
+            <a href="home.html">Home</a>
+            <a href="logout.html">Log Out</a> <!-- same goes for these buttons.-->
+          </div>
+        </div>
+      </div>
+    <div class="page-container">
+      <h1>User Calendar</h1>
+      <div class="parent-container">
+        <div class="calendar-header">
+          <button onclick="previousMonth()">&#9664;</button>
+          <h2 id="monthName">January 2025</h2>
+          <button onclick="nextMonth()">&#9654;</button>
+        </div>
+        <div class="calendar-grid">
+          <div class="day-names">Mon</div>
+          <div class="day-names">Tue</div>
+          <div class="day-names">Wed</div>
+          <div class="day-names">Thu</div>
+          <div class="day-names">Fri</div>
+          <div class="day-names">Sat</div>
+          <div class="day-names">Sun</div>
+          <!-- Days will be populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const calendarGrid = document.querySelector(".calendar-grid");
+      const monthName = document.getElementById("monthName");
+
+      let currentYear = 2025;
+      let currentMonth = 0; // January
+
+      // Populate the calendar
+      function renderCalendar(year, month) {
+        calendarGrid.innerHTML = `
+          <div class="day-names">Mon</div>
+          <div class="day-names">Tue</div>
+          <div class="day-names">Wed</div>
+          <div class="day-names">Thu</div>
+          <div class="day-names">Fri</div>
+          <div class="day-names">Sat</div>
+          <div class="day-names">Sun</div>
+        `;
+
+        const firstDay = new Date(year, month, 1).getDay(); // Day of the week for 1st day
+        const daysInMonth = new Date(year, month + 1, 0).getDate(); // Total days in month
+        const daysInPrevMonth = new Date(year, month, 0).getDate(); // Total days in previous month
+
+        // Adjust for weeks starting on Monday
+        let startOffset = (firstDay === 0 ? 6 : firstDay - 1);
+
+        // Add days from previous month as inactive
+        for (let i = startOffset; i > 0; i--) {
+          const day = daysInPrevMonth - i + 1;
+          calendarGrid.innerHTML += `<div class="calendar-day inactive">${day}</div>`;
+        }
+
+        // Add days for the current month
+        for (let day = 1; day <= daysInMonth; day++) {
+          calendarGrid.innerHTML += `<div class="calendar-day">${day}</div>`;
+        }
+
+        // Add placeholders for the next month
+        const totalCells = calendarGrid.querySelectorAll(".calendar-day").length;
+        for (let i = 1; i <= (42 - totalCells); i++) {
+          calendarGrid.innerHTML += `<div class="calendar-day inactive">${i}</div>`;
+        }
+
+        // Update the header
+        const monthNames = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+        monthName.textContent = `${monthNames[month]} ${year}`;
+      }
+
+      function previousMonth() {
+        if (currentYear === 2025 && currentMonth === 0) {
+          alert("Cannot go back to 2024.");
+          return;
+        }
+
+        currentMonth--;
+        if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+        }
+
+        renderCalendar(currentYear, currentMonth);
+      }
+
+      function nextMonth() {
+        currentMonth++;
+        if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+        }
+
+        renderCalendar(currentYear, currentMonth);
+      }
+
+      // Initialize calendar
+      renderCalendar(currentYear, currentMonth);
+    </script>
+  </body>
+</html>
