@@ -181,14 +181,17 @@
       }
       // Function to validate passwords
       function validatePasswords() {
-        const password = document.querySelector('input[name="new-password"]').value;
-        const confirmPassword = document.querySelector('input[name="confirm-password"]').value;
+        const password = document.querySelector('input[name="new-password"]').value.trim();
+        const confirmPassword = document.querySelector('input[name="confirm-password"]').value.trim();
+
+        console.log("Password:", password);
+        console.log("Confirm Password:", confirmPassword);
 
         if (password !== confirmPassword) {
           alert("Passwords do not match. Please try again.");
           return false;
         }
-        alert("Account created successfully!"); // Replace this with actual form submission logic.
+        alert("Account created successfully!"); 
         closePopup(); // Close the popup on successful validation.
         return true;
       }
