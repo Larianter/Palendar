@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Users
+from django.http import HttpResponse
 
 # Create your views here.
 def login(request):
@@ -15,3 +16,12 @@ def register(request):
         new_user.save()
         
         return redirect('login')
+    
+def inlogger(request):
+    if request.method == "POST":
+        if Users.objects.filter(account_name=request.POST['uname'], password=request.POST['psw']).exists() == True:
+            response = HttpResponse("credentials accepted")
+        else:
+            response = HttpResponse("credentials not found")
+
+    return response
