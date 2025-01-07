@@ -1,7 +1,4 @@
 from django import forms
 from .models import Users
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = Users
-        fields = ["account_name", "password"]
+#Deprecated, forms are built-in to templates

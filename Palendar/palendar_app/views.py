@@ -8,6 +8,7 @@ def login(request):
     return render(request, 'palendar_app/logIn.html')
 
 def register(request):
+    #registers new user account
     if request.method == "POST":
         username = request.POST["new-username"]
         password = request.POST["new-password"]
@@ -18,9 +19,11 @@ def register(request):
         return redirect('login')
     
 def inlogger(request):
+    #logs the user in
     if request.method == "POST":
         if Users.objects.filter(account_name=request.POST['uname'], password=request.POST['psw']).exists() == True:
-            response = HttpResponse("credentials accepted")
+            current_user = request.POST['uname']
+            response = render(request, 'palendar_app/personal_calendar.html', {'account_name': current_user})
         else:
             response = HttpResponse("credentials not found")
 
