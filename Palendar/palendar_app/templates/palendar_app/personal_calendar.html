@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>User Calendar</title>
+    content="width=device-width, initial-scale=1.0">
     <style>
       body {
         background-color: #3a3a3a;
@@ -13,23 +14,88 @@
         justify-content: center;
         color: #3a3a3a; /* Universal text color, if not stated differently */
       }
-
       .page-container {
         text-align: center;
-        width: 100%;
+        width: 45%;
+        height: 75%;
+        color: #fff;
+        border-radius: 10px;
+        background-color: #242424;
       }
 
-      h1 {
-        margin-bottom: 20px;
-      }
-
+      /* Parent container styling */
       .parent-container {
         background-color: rgba(0, 0, 0, 0.5);
         padding: 15px;
         border-radius: 10px;
-        width: 70%; /* The procentile refers to the width of the parent container, and it reduces the size of the calendar */
+        width: 100%;
         max-width: 600px;
         margin: auto;
+        align-self: center;
+      }
+
+      .co-parent-container {
+        text-align: center;
+        border-radius: 10px;
+        width: 25%;
+        height: 75%;
+        color: #fff;
+        margin-right: 10px;
+        background-color: #242424;
+      }
+
+
+      /* Event Styling */
+      .add-event-button {
+        font-size: 100px;
+        background-color: #242424;
+        color: #fff;
+        display: flex;
+        bottom: 10%;
+        right: 5%;
+        width:100px;
+        height:100px;
+        border-radius: 50%;
+        position: fixed;
+        cursor: pointer;
+      }
+
+      .add-event-button-container {
+        display: flex;
+        right: 5%;
+        bottom: 10%;
+        width:100px;
+        height:100px;
+        border-radius: 50%;
+        position: fixed;
+        background: #242424;
+      }
+      /* Group calendar button styling */
+      .group-calendar-container {
+        display: flex;
+        top: 10%;
+        right: 10%;
+        left: 90%;
+        bottom: 90%;
+        width:150px;
+        height:55px;
+        border-radius: 10px;
+        position: fixed;
+        background: #242424;
+      }
+
+      .group-calendar-button {
+        font-size: 18px;
+        color: #fff;
+        text-decoration: underline;
+        display: flex;
+        top: 12%;
+        right: 0.7%;
+        width:150px;
+        height:55px;
+        border-radius: 10px;
+        position: fixed;
+        cursor: pointer;
       }
 
       /* Calendar Styling */
@@ -136,7 +202,7 @@
 
       .dropdown-content { /* overall dropdown look */
         display: none;
-        position: absolute;
+        position: fixed;
         right: 0;
         background-color: #4a4a4a;
         border-radius: 5px;
@@ -159,13 +225,7 @@
        display: block;
       }
 
-      /* Responsive design styling */
-      @media (max-width: 600px) {
-        .calendar-grid {
-          font-size: 10px;
-        }
-      }
-
+  
       .calendar-day {
         min-width: 50px;
       }
@@ -173,6 +233,121 @@
       .calendar-header {
         font-size: 14px;
       }
+
+
+      /* Group popup styling */
+    .group-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.9);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .group-popup.hidden {
+      display: none;
+    }
+
+  .group-popup-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .group-popup-header button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .group-popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+ /* Event popup styling */
+  .event-popup.hidden {
+      display: none;
+    }
+
+  .event-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .event-popup-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .event-popup-content {
+    position: relative;
+    background-color: #242424;
+    padding: 20px 20px 20px;
+    padding-top: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    width:300px;
+    box-sizing: border-box;
+  }
+
+  .event-popup-content h2 {
+    margin-bottom: 20px;
+  }
+  
+  .event-popup-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    max-width: 280px;
+  }
+
+  .event-popup-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .event-popup-content button:hover {
+    background-color: #555;
+  }
+
     </style>
   </head>
   <body>
@@ -187,6 +362,38 @@
           </div>
         </div>
       </div>
+
+    <!-- Group Calendar button -->
+    <div class="group-calendar-container"></div>
+      <div class="group-calendar-button" onclick="showPopup()">Group Calendars</div>
+    </div>
+
+    <!-- Add Event button -->
+    <div class="add-event-button-container"></div>
+      <button class="add-event-button" onclick="showPopup()"> + </button>
+    </div>
+
+    <div class="event-popup" id="popupModal">
+      <div class="event-popup-content">
+        <form action="add_event" method="POST">
+          {% csrf_token %}
+          <button class="event-popup-close-button" onclick="closePopup()">X</button>
+          <h2>Add Event</h2>
+          <input type="text" placeholder="Event Name" name="event-popup-content" required>
+          <input type="date" name="event-popup-content" required>
+          <input type="time" name="event-popup-content">
+          <input type="text" placeholder="Event Description" name="event-popup-content">
+          <button type="submit" onclick="closePopup()">Submit</button>
+        </form>
+      </div>
+    </div>
+   
+
+    <!-- Co-parent container aka "this week" -->
+    <div class="co-parent-container"></div>
+      <h1>wtf</h1>
+    </div>
+  
 
     <!-- User Calendar -->
     <div class="page-container">
@@ -206,6 +413,12 @@
           <div class="day-names">Sat</div>
           <div class="day-names">Sun</div>
         </div>
+      </div>
+    </div>
+    
+
+    <!-- Group Calendar Popup -->
+    </div> class="popupModal" id="groupPopup">
       </div>
     </div>
 
@@ -291,6 +504,16 @@
       }
 
       renderCalendar(currentYear, currentMonth);
+
+      function showPopup() {
+        document.getElementById("event-popup").style.display = "flex";
+      }
+      
+      function closePopup() {
+        document.getElementById("event-popup").style.display = "none";
+      }
+
+
     </script>
   </body>
 </html>
