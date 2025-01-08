@@ -353,7 +353,7 @@
   <body>
     <!-- Page Header -->
     <div class="header">
-        <span id="username">{{ user.username }}</span> <!-- not sure if this works like I want it to, should display logged in user -->
+        <span id="username">{{ account_name }}</span> <!-- not sure if this works like I want it to, should display logged in user -->
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
@@ -390,8 +390,11 @@
    
 
     <!-- Co-parent container aka "this week" -->
-    <div class="co-parent-container"></div>
-      <h1>wtf</h1>
+    <div class="co-parent-container">
+      <h1>debug_test</h1>
+      <body>
+        <p> {{ DEBUG_TEST }} </p> 
+      </body>
     </div>
   
 
