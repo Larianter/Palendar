@@ -31,3 +31,17 @@ def inlogger(request):
             response = HttpResponse("credentials not found")
 
     return response
+
+def eventAdder(request):
+    #adds event to calendar
+    if request.method == "POST":
+        eventName = request.POST["event-name"]
+        eventDateTime = request.POST["event-dateTime"]
+        eventDesc = request.POST["event-desc"]
+        newEventID = User_Calendar.objects.order_by("eventID")[0] + 1
+
+        new_event = Event_Details(event_name = eventName, event_dateTime = eventDateTime, event_desc = eventDesc, eventID = newEventID)
+        new_event.save()
+
+        return redirect('palendar_app/personal_calendar.html')
+
