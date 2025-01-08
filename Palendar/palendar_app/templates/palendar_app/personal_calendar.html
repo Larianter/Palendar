@@ -467,10 +467,9 @@
           {% csrf_token %}
           <button class="event-popup-close-button" onclick="closePopup()">X</button>
           <h2>Add Event</h2>
-          <input type="text" placeholder="Event Name" name="event-popup-content" required>
-          <input type="date" name="event-popup-content" required>
-          <input type="time" name="event-popup-content">
-          <input type="text" placeholder="Event Description" name="event-popup-content">
+          <input type="text" placeholder="Event Name" name="event-name" required>
+          <input type="datetime-local" name="event-dateTime" required>
+          <input type="text" placeholder="Event Description" name="event-desc">
           <button type="submit" onclick="closePopup()">Submit</button>
         </form>
       </div>
