@@ -14,16 +14,15 @@
         justify-content: center;
         color: #3a3a3a; /* Universal text color, if not stated differently */
       }
-      /*styling (aka user calendar)*/
+      /*styling (aka the "user calendar" container)*/
       .page-container {
         background-color: #242424;
         padding: 20px;
         border-radius: 10px;
-        width: 100%;
+        width: 75%;
         max-width: 700px;
         min-width: 700px;
-        height: 80%;
-        margin: auto;
+        height: 700px; 
         align-self: center;
         display: inline-block;
         text-align: center;
@@ -36,57 +35,139 @@
         padding: 15px;
         border-radius: 10px;
         width: 100%;
-        max-width: 600px;
-        margin: 400px;
-        height: 80%;
+        max-width: 80%;
         margin: auto;
         align-self: center;
         display: inline-block;
         text-align: center;
-      }
+      } 
 
+      /* Co-parent container aka "this week" */
       .co-parent-container {
         background-color: #242424;
         padding: 20px;
         border-radius: 10px;
         width: 25%;
-        max-width: 350px;
-        min-width: 175px;
-        height: 80%;
-        margin: auto;
-        margin-right: 10px;
+        max-width: 700px;
+        min-width: 350px;
+        height: 700px; 
+        margin-right: 1%;
         align-self: center;
         display: inline-block;
         text-align: center;
         color: #fff;
+        overflow: scroll;
       }
 
+      .this-week-box-1 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
 
-      /* Event Styling */
+      .this-week-box-2 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
+
+      .this-week-box-3 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
+
+      .this-week-box-4 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
+
+      .this-week-box-5 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
+
+      .this-week-box-6 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
+
+      .this-week-box-7 {
+        background-color: #555;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        width: 90%;
+        height: 70px;
+        align-self: center;
+        display: inline-block;
+        color: #fff;
+      }
+
+      /* Event button Styling */
+
       .add-event-button {
-        font-size: 100px;
+        font-size: 90px;
         background-color: #242424;
         color: #fff;
-        display: flex;
-        bottom: 10%;
-        right: 5%;
+        display: inline-block;
         width:100px;
         height:100px;
         border-radius: 50%;
-        position: fixed;
+        align-content: center;
+        position: absolute;
         cursor: pointer;
       }
 
-      .add-event-button-container {
+      .add-event-container {
         display: flex;
-        right: 5%;
+        top: 90%;
+        right: 10%;
+        left: 90%;
         bottom: 10%;
-        width:100px;
-        height:100px;
-        border-radius: 50%;
+        border-radius: 10px;
         position: fixed;
         background: #242424;
       }
+
       /* Group calendar button styling */
       .group-calendar-container {
         display: flex;
@@ -371,14 +452,14 @@
       </div>
 
     <!-- Group Calendar button -->
-    <div class="group-calendar-container"></div>
-      <div class="group-calendar-button" onclick="showPopup()">Group Calendars</div>
-    </div>
+      <div class="group-calendar-container">
+        <div class="group-calendar-button" onclick="showPopup()">Group Calendars</div>
+      </div> 
 
     <!-- Add Event button -->
-    <div class="add-event-button-container"></div>
-      <button class="add-event-button" onclick="showPopup()"> + </button>
-    </div>
+      <div class="add-event-container">
+        <button class="add-event-button" onclick="showPopup()">+ </button>
+      </div> 
 
     <div class="event-popup" id="event-popup">
       <div class="event-popup-content">
@@ -400,7 +481,27 @@
     <div class="co-parent-container">
       <h1>debug_test</h1>
       <body>
-        <p> {{ DEBUG_TEST }} </p> 
+        <div class="this-week-box-1">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
+        <div class="this-week-box-2">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
+        <div class="this-week-box-3">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
+        <div class="this-week-box-4">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
+        <div class="this-week-box-5">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
+        <div class="this-week-box-6">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
+        <div class="this-week-box-7">
+            <p> {{ DEBUG_TEST }} </p>
+        </div>
       </body>
     </div>
   
@@ -408,12 +509,13 @@
     <!-- User Calendar -->
     <div class="page-container">
       <h1>User Calendar</h1>
-      <div class="parent-container">
-        <div class="calendar-header">
-          <button onclick="previousMonth()">&#9664;</button> <!-- Previous month -->
-          <h2 id="monthName">January 2025</h2> <!-- Month and year display -->
-          <button onclick="nextMonth()">&#9654;</button> <!-- Next month -->
-        </div>
+      <body>
+        <div class="parent-container">
+          <div class="calendar-header">
+            <button onclick="previousMonth()">&#9664;</button> <!-- Previous month -->
+            <h2 id="monthName">January 2025</h2> <!-- Month and year display -->
+            <button onclick="nextMonth()">&#9654;</button> <!-- Next month -->
+          </div>
         <div class="calendar-grid">
           <div class="day-names">Mon</div>
           <div class="day-names">Tue</div>
@@ -422,15 +524,15 @@
           <div class="day-names">Fri</div>
           <div class="day-names">Sat</div>
           <div class="day-names">Sun</div>
-        </div>
-      </div>
+          </div>
+        </body>
     </div>
     
 
     <!-- Group Calendar Popup -->
-    </div> class="popupModal" id="groupPopup">
+    <!--</div> class="popupModal" id="groupPopup">
       </div>
-    </div>
+    </div> -->
 
     <script>
       const calendarGrid = document.querySelector(".calendar-grid");
