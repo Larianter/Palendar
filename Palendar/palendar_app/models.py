@@ -24,7 +24,7 @@ class Event_Details(models.Model):
     userID = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.event_name} {self.event_desc} {self.event_date}"
+        return f"Name: {self.event_name} | Description: {self.event_desc} |\n Date: {self.event_date}"
 
 class Group_Calendar(models.Model):
     #stores all users' events in group
