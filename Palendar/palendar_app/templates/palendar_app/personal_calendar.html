@@ -14,34 +14,51 @@
         justify-content: center;
         color: #3a3a3a; /* Universal text color, if not stated differently */
       }
+      /*styling (aka user calendar)*/
       .page-container {
-        text-align: center;
-        width: 45%;
-        height: 75%;
-        color: #fff;
-        border-radius: 10px;
         background-color: #242424;
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 700px;
+        min-width: 700px;
+        height: 80%;
+        margin: auto;
+        align-self: center;
+        display: inline-block;
+        text-align: center;
+        color: #fff;
       }
 
-      /* Parent container styling */
+      /* Parent container (aka the actual calendar) */
       .parent-container {
         background-color: rgba(0, 0, 0, 0.5);
         padding: 15px;
         border-radius: 10px;
         width: 100%;
         max-width: 600px;
+        margin: 400px;
+        height: 80%;
         margin: auto;
         align-self: center;
+        display: inline-block;
+        text-align: center;
       }
 
       .co-parent-container {
-        text-align: center;
+        background-color: #242424;
+        padding: 20px;
         border-radius: 10px;
         width: 25%;
-        height: 75%;
-        color: #fff;
+        max-width: 350px;
+        min-width: 175px;
+        height: 80%;
+        margin: auto;
         margin-right: 10px;
-        background-color: #242424;
+        align-self: center;
+        display: inline-block;
+        text-align: center;
+        color: #fff;
       }
 
 
@@ -120,7 +137,6 @@
         color: #fff;
       }
 
-      /* Calendar grid styling */
       .calendar-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -136,6 +152,7 @@
         border: 1px solid #4a4a4a;
         padding: 5px;
         min-height: 60px;
+        min-width: 50px;
         font-size: 12px;
         border-radius: 3px;
         background-color: #4a4a4a;
@@ -224,16 +241,6 @@
       .dropdown:hover .dropdown-content {
        display: block;
       }
-
-  
-      .calendar-day {
-        min-width: 50px;
-      }
-
-      .calendar-header {
-        font-size: 14px;
-      }
-
 
       /* Group popup styling */
     .group-popup {
