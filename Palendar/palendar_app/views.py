@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Users, Event_Details, User_Calendar
+from .models import Users, EventDetails
 from django.http import HttpResponse
 
 # Create your views here.
@@ -23,8 +23,9 @@ def inlogger(request):
     if request.method == "POST":
         if Users.objects.filter(account_name=request.POST['uname'], password=request.POST['psw']).exists() == True:
             current_user = request.POST['uname']
+            global current_user_id 
             current_user_id = Users.objects.get(account_name = current_user)
-            user_events = Event_Details.objects.filter(eventID__in=User_Calendar.objects.filter(userID=current_user_id))
+            user_events = EventDetails.objects.filter()
             current_events = "\n".join([str(event) for event in user_events])
             response = render(request, 'palendar_app/personal_calendar.html', {'account_name': current_user,'DEBUG_TEST': current_events})
         else:
@@ -38,10 +39,8 @@ def eventAdder(request):
         eventName = request.POST["event-name"]
         eventDateTime = request.POST["event-dateTime"]
         eventDesc = request.POST["event-desc"]
-        newEventID = User_Calendar.objects.order_by("eventID")[0] + 1
-
-        new_event = Event_Details(event_name = eventName, event_dateTime = eventDateTime, event_desc = eventDesc, eventID = newEventID)
+        new_event = EventDetails(event_name = eventName, event_desc = eventDesc, event_date = eventDateTime, userID=current_user_id)
         new_event.save()
 
-        return redirect('palendar_app/personal_calendar.html')
+        return render(request, 'palendar_app/personal_calendar.html')
 
