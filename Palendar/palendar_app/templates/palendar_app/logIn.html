@@ -157,7 +157,7 @@
     <!-- Popup Modal -->
     <div class="popup-modal" id="popupModal">
       <div class="popup-content">
-        <form action="register" method="POST">
+        <form action="register" method="POST" onsubmit="return validatePasswords()">
           {% csrf_token %}
           <button class="close-button" onclick="closePopup()">X</button>
           <h2>Create an Account</h2>
@@ -190,7 +190,9 @@
         if (password !== confirmPassword) {
           alert("Passwords do not match. Please try again.");
           return false;
-        }
+        } 
+        
+        else {
         alert("Account created successfully!"); 
         closePopup(); // Close the popup on successful validation.
         return true;
