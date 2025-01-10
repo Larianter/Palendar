@@ -66,7 +66,7 @@
         width: 10px;
         background-color: #242424;
         border-radius: 10px;
-        }
+        }                               /*These two control the look of the scrollwheel, webkit is built in to the browser*/
         ::-webkit-scrollbar-thumb {
         background-color: #555;
         border-radius: 5px;
@@ -205,8 +205,8 @@
 
       .calendar-day {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: left;
+        align-items: top;
         border: 1px solid #4a4a4a;
         padding: 5px;
         min-height: 60px;
@@ -223,7 +223,7 @@
       }
 
       .calendar-day.active {
-        color: #74abe3; /* Highlights the current active day. (This would ideally be selected by the user) */
+        color: #a2c0de; /* Highlights the current active day. (This would ideally be selected by the user) */
       } /* Also totally doesn't work for some reason*/
 
       .day-names {
@@ -232,7 +232,7 @@
         color: #fff;
       }
 
-      .calendar-day.inactive {
+      .calendar-day.inactive { /*aka inactive days from pevious and next month*/
         opacity: 0.3;
         pointer-events: none;
       }
@@ -279,16 +279,24 @@
         display: none;
         position: fixed;
         right: 0;
+        padding: 10px;
         background-color: #4a4a4a;
         border-radius: 5px;
         z-index: 20;
         width: 100px;
       }
 
-      .dropdown-content a { /* dropdown buttons, both Log Out and Home */
+      .dropdown-content a { /* dropdown button Home */
         color: #fff;
         padding: 8px 12px;
         text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content b  { /* dropdown button Log Out */
+        color: #9d6565;
+        padding: 8px 12px;
+        text-decoration: underline;
         display: block;
       }
 
@@ -300,10 +308,17 @@
        display: block;
       }
 
-      /* Group calendars button styling */
+      /* Group calendars button and dropdown styling */
+      .group-calendar-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
       .group-calendar-button {
+        position: relative;
         font-size: 16px;
         color: #fff;
+        background-color: transparent;
         text-decoration: underline;
         cursor: pointer;
         padding: 10px;
@@ -311,49 +326,32 @@
         border-radius: 10px;
       }
 
-      /* Group popup styling */
-    .group-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.9);
-      color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+      .group-calendar-dropdown-content {
+        display: none;
+        position: fixed;
+        padding: 10px;
+        background-color: #4a4a4a;
+        border-radius: 5px;
+        z-index: 20;
+        width: 200px;
+      }
 
-    .group-popup.hidden {
-      display: none;
-    }
+      .group-calendar-dropdown-content a {
+        color: #fff;
+        padding: 8px 12px;
+        text-decoration: none;
+        display: block;
+      }
 
-  .group-popup-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
+      .group-calendar-dropdown-content a:hover {
+        background-color: #555;
+      }
 
-  .group-popup-header button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-  }
+      .group-calendar-dropdown:hover .group-calendar-dropdown-content {
+        display: block;
+      }
 
-  .group-popup-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-  }
+
 
  /* Event popup styling */
   .event-popup.hidden {
@@ -430,20 +428,24 @@
     <!-- Page Header -->
     <div class="header">
         <span id="username">{{ account_name }}</span> <!-- not sure if this works like I want it to, should display logged in user -->
-        <div class="group-calendar-button" onclick="showPopup()">Group Calendars</div>
+        <div class="group-calendar-dropdown"> 
+          <button class="group-calendar-button">Group Calendars</button>
+          <div class="group-calendar-dropdown-content">
+            <a href="personal_calendar.html">Personal Calendar</a>
+            <a href="group_calendar(1).html">Group Calendar1</a>
+            <a href="group_calendar(2).html">Group Calendar2</a>
+          </div>
+        </div>
+
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
             <a href="home.html">Home</a> <!-- link to the home page -->
-            <a href="logout.html">Log Out</a> <!-- link to the logout(?) -->
+            <b href="logout.html">Log Out</b> <!-- link to logout(?) -->
           </div>
         </div>
       </div>
 
-  <!-- Group Calendar Popup -->
-    <!--</div> class="popupModal" id="groupPopup">
-      </div>
-    </div> -->
 
     <!-- Co-parent container aka "this week" -->
     <div class="co-parent-container">
@@ -477,7 +479,22 @@
     <!-- User Calendar -->
     <div class="page-container">
       <h1>User Calendar</h1>
-      <button class="add-event-button" onclick="showPopup()">+ </button> <!-- Add Event button -->
+      <button class="add-event-button" onclick="showPopup('event-popup')">+ </button> <!-- Add Event button -->
+          <div class="event-popup" id="event-popup">
+            <div class="event-popup-content">
+              <form action="add_event" method="POST">
+                {% csrf_token %}
+                <button class="event-popup-close-button" onclick="closePopup()">X</button>
+                <h2>Add Event</h2>
+                <input type="text" placeholder="Event Name" name="event-name" required>
+                <input type="datetime-local" name="event-dateTime" required>
+                <input type="text" placeholder="Event Description" name="event-desc">
+                <button type="submit" onclick="closePopup()">Submit</button>
+              </form>
+            </div>
+          </div>
+        
+
       <body>
         <div class="parent-container">
           <div class="calendar-header">
@@ -498,20 +515,6 @@
     </div>
     
 
-    
-    <div class="event-popup" id="event-popup">
-      <div class="event-popup-content">
-        <form action="add_event" method="POST">
-          {% csrf_token %}
-          <button class="event-popup-close-button" onclick="closePopup()">X</button>
-          <h2>Add Event</h2>
-          <input type="text" placeholder="Event Name" name="event-name" required>
-          <input type="datetime-local" name="event-dateTime" required>
-          <input type="text" placeholder="Event Description" name="event-desc">
-          <button type="submit" onclick="closePopup()">Submit</button>
-        </form>
-      </div>
-    </div>
    
 
     <script>
