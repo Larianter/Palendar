@@ -27,6 +27,7 @@
         display: inline-block;
         text-align: center;
         color: #fff;
+        position: relative;
       }
 
       /* Parent container (aka the actual calendar) */
@@ -40,6 +41,7 @@
         align-self: center;
         display: inline-block;
         text-align: center;
+        position: relative;
       } 
 
       /* Co-parent container aka "this week" */
@@ -58,6 +60,7 @@
         color: #fff;
         overflow-y: scroll;
         overflow-x: hidden;
+        position: relative;
       }
         ::-webkit-scrollbar {
         width: 10px;
@@ -68,10 +71,8 @@
         background-color: #555;
         border-radius: 5px;
         }
-        
       
-      
-
+        /* This week boxes */
       .this-week-box-1 {
         background-color: #555;
         padding: 20px;
@@ -158,54 +159,17 @@
       /* Event button Styling */
 
       .add-event-button {
-        font-size: 90px;
-        background-color: #242424;
+        font-size: 50px;
+        background-color: transparent;
         color: #fff;
-        display: inline-block;
-        width:100px;
-        height:100px;
+        border: 2px solid #fff;
+        width:60px;
+        height:60px;
         border-radius: 50%;
         align-content: center;
         position: absolute;
-        cursor: pointer;
-      }
-
-      .add-event-container {
-        display: flex;
-        top: 90%;
-        right: 10%;
-        left: 90%;
-        bottom: 10%;
-        border-radius: 10px;
-        position: fixed;
-        background: #242424;
-      }
-
-      /* Group calendar button styling */
-      .group-calendar-container {
-        display: flex;
-        top: 10%;
-        right: 10%;
-        left: 90%;
-        bottom: 90%;
-        width:150px;
-        height:55px;
-        border-radius: 10px;
-        position: fixed;
-        background: #242424;
-      }
-
-      .group-calendar-button {
-        font-size: 18px;
-        color: #fff;
-        text-decoration: underline;
-        display: flex;
-        top: 12%;
-        right: 0.7%;
-        width:150px;
-        height:55px;
-        border-radius: 10px;
-        position: fixed;
+        right: 20px;
+        top: 20px;
         cursor: pointer;
       }
 
@@ -289,9 +253,9 @@
        }
 
       #username {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
-        padding-left: 10px;
+        padding-left: 15px;
         color: #fff; /* This could also be chosen by the user, if there's time to implement it */
        }   
 
@@ -305,9 +269,9 @@
         background-color: transparent;
         border: none;
         color: #fff;
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
-        padding-right: 10px;
+        padding-right: 15px;
         cursor: pointer;
       } 
 
@@ -334,6 +298,17 @@
 
       .dropdown:hover .dropdown-content {
        display: block;
+      }
+
+      /* Group calendars button styling */
+      .group-calendar-button {
+        font-size: 16px;
+        color: #fff;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 10px;
+        border: solid 2px #fff;
+        border-radius: 10px;
       }
 
       /* Group popup styling */
@@ -455,6 +430,7 @@
     <!-- Page Header -->
     <div class="header">
         <span id="username">{{ account_name }}</span> <!-- not sure if this works like I want it to, should display logged in user -->
+        <div class="group-calendar-button" onclick="showPopup()">Group Calendars</div>
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
@@ -464,30 +440,10 @@
         </div>
       </div>
 
-    <!-- Group Calendar button -->
-      <div class="group-calendar-container">
-        <div class="group-calendar-button" onclick="showPopup()">Group Calendars</div>
-      </div> 
-
-    <!-- Add Event button -->
-      <div class="add-event-container">
-        <button class="add-event-button" onclick="showPopup()">+ </button>
-      </div> 
-
-    <div class="event-popup" id="event-popup">
-      <div class="event-popup-content">
-        <form action="add_event" method="POST">
-          {% csrf_token %}
-          <button class="event-popup-close-button" onclick="closePopup()">X</button>
-          <h2>Add Event</h2>
-          <input type="text" placeholder="Event Name" name="event-name" required>
-          <input type="datetime-local" name="event-dateTime" required>
-          <input type="text" placeholder="Event Description" name="event-desc">
-          <button type="submit" onclick="closePopup()">Submit</button>
-        </form>
+  <!-- Group Calendar Popup -->
+    <!--</div> class="popupModal" id="groupPopup">
       </div>
-    </div>
-   
+    </div> -->
 
     <!-- Co-parent container aka "this week" -->
     <div class="co-parent-container">
@@ -521,6 +477,7 @@
     <!-- User Calendar -->
     <div class="page-container">
       <h1>User Calendar</h1>
+      <button class="add-event-button" onclick="showPopup()">+ </button> <!-- Add Event button -->
       <body>
         <div class="parent-container">
           <div class="calendar-header">
@@ -541,10 +498,21 @@
     </div>
     
 
-    <!-- Group Calendar Popup -->
-    <!--</div> class="popupModal" id="groupPopup">
+    
+    <div class="event-popup" id="event-popup">
+      <div class="event-popup-content">
+        <form action="add_event" method="POST">
+          {% csrf_token %}
+          <button class="event-popup-close-button" onclick="closePopup()">X</button>
+          <h2>Add Event</h2>
+          <input type="text" placeholder="Event Name" name="event-name" required>
+          <input type="datetime-local" name="event-dateTime" required>
+          <input type="text" placeholder="Event Description" name="event-desc">
+          <button type="submit" onclick="closePopup()">Submit</button>
+        </form>
       </div>
-    </div> -->
+    </div>
+   
 
     <script>
       const calendarGrid = document.querySelector(".calendar-grid");
