@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>User Calendar</title>
-    content="width=device-width, initial-scale=1.0">
     <style>
       body {
         background-color: #3a3a3a;
@@ -16,6 +15,7 @@
       }
       /*styling (aka the "user calendar" container)*/
       .page-container {
+        flex:2;
         background-color: #242424;
         padding: 20px;
         border-radius: 10px;
@@ -23,6 +23,7 @@
         max-width: 700px;
         min-width: 700px;
         height: 700px; 
+        min-height: 700px;
         align-self: center;
         display: inline-block;
         text-align: center;
@@ -46,14 +47,16 @@
 
       /* Co-parent container aka "this week" */
       .co-parent-container {
+        flex: 1;
         background-color: #242424;
         padding: 20px;
         border-radius: 10px;
         width: 25%;
-        max-width: 700px;
+        max-width: 400px;
         min-width: 350px;
         height: 700px; 
-        margin-right: 1%;
+        min-height: 700px;
+        margin-right: 10px;
         align-self: center;
         display: inline-block;
         text-align: center;
@@ -315,7 +318,6 @@
       }
 
       .group-calendar-button {
-        position: relative;
         font-size: 16px;
         color: #fff;
         background-color: transparent;
@@ -429,7 +431,7 @@
     <div class="header">
         <span id="username">{{ account_name }}</span> <!-- not sure if this works like I want it to, should display logged in user -->
         <div class="group-calendar-dropdown"> 
-          <button class="group-calendar-button">Group Calendars</button>
+          <button class="group-calendar-button">All Calendars</button>
           <div class="group-calendar-dropdown-content">
             <a href="personal_calendar.html">Personal Calendar</a>
             <a href="group_calendar(1).html">Group Calendar1</a>
@@ -447,73 +449,73 @@
       </div>
 
 
-    <!-- Co-parent container aka "this week" -->
-    <div class="co-parent-container">
-      <h1>debug_test</h1>
-      <body>
-        <div class="this-week-box-1">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-        <div class="this-week-box-2">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-        <div class="this-week-box-3">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-        <div class="this-week-box-4">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-        <div class="this-week-box-5">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-        <div class="this-week-box-6">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-        <div class="this-week-box-7">
-            <p> {{ DEBUG_TEST }} </p>
-        </div>
-      </body>
-    </div>
-  
-
-    <!-- User Calendar -->
-    <div class="page-container">
-      <h1>User Calendar</h1>
-      <button class="add-event-button" onclick="showPopup('event-popup')">+ </button> <!-- Add Event button -->
-          <div class="event-popup" id="event-popup">
-            <div class="event-popup-content">
-              <form action="add_event" method="POST">
-                {% csrf_token %}
-                <button class="event-popup-close-button" onclick="closePopup()">X</button>
-                <h2>Add Event</h2>
-                <input type="text" placeholder="Event Name" name="event-name" required>
-                <input type="datetime-local" name="event-dateTime" required>
-                <input type="text" placeholder="Event Description" name="event-desc">
-                <button type="submit" onclick="closePopup()">Submit</button>
-              </form>
-            </div>
+      <!-- Co-parent container aka "this week" -->
+      <div class="co-parent-container">
+        <h1>debug_test</h1>
+        <body>
+          <div class="this-week-box-1">
+              <p> {{ DEBUG_TEST }} </p>
           </div>
-        
-
-      <body>
-        <div class="parent-container">
-          <div class="calendar-header">
-            <button onclick="previousMonth()">&#9664;</button> <!-- Previous month -->
-            <h2 id="monthName">January 2025</h2> <!-- Month and year display -->
-            <button onclick="nextMonth()">&#9654;</button> <!-- Next month -->
+          <div class="this-week-box-2">
+              <p> {{ DEBUG_TEST }} </p>
           </div>
-        <div class="calendar-grid">
-          <div class="day-names">Mon</div>
-          <div class="day-names">Tue</div>
-          <div class="day-names">Wed</div>
-          <div class="day-names">Thu</div>
-          <div class="day-names">Fri</div>
-          <div class="day-names">Sat</div>
-          <div class="day-names">Sun</div>
+          <div class="this-week-box-3">
+              <p> {{ DEBUG_TEST }} </p>
+          </div>
+          <div class="this-week-box-4">
+              <p> {{ DEBUG_TEST }} </p>
+          </div>
+          <div class="this-week-box-5">
+              <p> {{ DEBUG_TEST }} </p>
+          </div>
+          <div class="this-week-box-6">
+              <p> {{ DEBUG_TEST }} </p>
+          </div>
+          <div class="this-week-box-7">
+              <p> {{ DEBUG_TEST }} </p>
           </div>
         </body>
-    </div>
+      </div>
     
+
+      <!-- User Calendar -->
+      <div class="page-container">
+        <h1>User Calendar</h1>
+        <button class="add-event-button" onclick="showPopup('event-popup')">+ </button> <!-- Add Event button -->
+            <div class="event-popup" id="event-popup">
+              <div class="event-popup-content">
+                <form action="add_event" method="POST">
+                  {% csrf_token %}
+                  <button class="event-popup-close-button" onclick="closePopup()">X</button>
+                  <h2>Add Event</h2>
+                  <input type="text" placeholder="Event Name" name="event-name" required>
+                  <input type="datetime-local" name="event-dateTime" required>
+                  <input type="text" placeholder="Event Description" name="event-desc">
+                  <button type="submit" onclick="closePopup()">Submit</button>
+                </form>
+              </div>
+            </div>
+          
+
+        <body>
+          <div class="parent-container">
+            <div class="calendar-header">
+              <button onclick="previousMonth()">&#9664;</button> <!-- Previous month -->
+              <h2 id="monthName">January 2025</h2> <!-- Month and year display -->
+              <button onclick="nextMonth()">&#9654;</button> <!-- Next month -->
+            </div>
+          <div class="calendar-grid">
+            <div class="day-names">Mon</div>
+            <div class="day-names">Tue</div>
+            <div class="day-names">Wed</div>
+            <div class="day-names">Thu</div>
+            <div class="day-names">Fri</div>
+            <div class="day-names">Sat</div>
+            <div class="day-names">Sun</div>
+            </div>
+          </body>
+      </div>
+      
 
    
 
