@@ -26,8 +26,8 @@ def inlogger(request):
             global current_user_id 
             current_user_id = Users.objects.get(account_name = current_user)
             user_events = EventDetails.objects.filter()
-            current_events = "\n".join([str(event) for event in user_events])
-            response = render(request, 'palendar_app/personal_calendar.html', {'account_name': current_user,'DEBUG_TEST': current_events})
+            #current_events = "\n".join([str(event) for event in user_events]) !! Deprecated !!
+            response = render(request, 'palendar_app/personal_calendar.html', {'account_name': current_user,'user_events': user_events})
         else:
             response = HttpResponse("credentials not found")
 

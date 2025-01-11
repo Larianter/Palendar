@@ -442,8 +442,8 @@
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
-            <a href="home.html">Home</a> <!-- link to the home page -->
-            <b href="logout.html">Log Out</b> <!-- link to logout(?) -->
+            <a href="personal_calendar.html">Home</a> <!-- link to the home page -->
+            <b href="logIn.html">Log Out</b> <!-- link to logout(?) -->
           </div>
         </div>
       </div>
@@ -451,29 +451,19 @@
 
       <!-- Co-parent container aka "this week" -->
       <div class="co-parent-container">
-        <h1>debug_test</h1>
+        <h1>This Week</h1>
         <body>
-          <div class="this-week-box-1">
-              <p> {{ DEBUG_TEST }} </p>
+          {% if user_events %}
+            {% for event in user_events %}
+              <div class="this-week-box-1">
+              <h2>{{ event.event_name }}</h2>
+              <p>{{ event.event_desc }}</p>
+              <p>{{ event.event_date }}</p>
           </div>
-          <div class="this-week-box-2">
-              <p> {{ DEBUG_TEST }} </p>
-          </div>
-          <div class="this-week-box-3">
-              <p> {{ DEBUG_TEST }} </p>
-          </div>
-          <div class="this-week-box-4">
-              <p> {{ DEBUG_TEST }} </p>
-          </div>
-          <div class="this-week-box-5">
-              <p> {{ DEBUG_TEST }} </p>
-          </div>
-          <div class="this-week-box-6">
-              <p> {{ DEBUG_TEST }} </p>
-          </div>
-          <div class="this-week-box-7">
-              <p> {{ DEBUG_TEST }} </p>
-          </div>
+            {% endfor %}
+          {% else %}
+            <p>No upcoming events!</p>
+          {% endif %}
         </body>
       </div>
     
