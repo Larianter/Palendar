@@ -454,7 +454,7 @@
         <h1>This Week</h1>
         <body>
           {% if user_events %}
-            {% for event in user_events %}
+            {% for event in user_events %}    <!-- Iterates through "user_events" returned from View -->
               <div class="this-week-box-1">
               <h2>{{ event.event_name }}</h2>
               <p>{{ event.event_desc }}</p>
