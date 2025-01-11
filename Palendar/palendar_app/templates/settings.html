@@ -132,7 +132,7 @@
             background-color: #242424;
             border-radius: 10px;
             width: 75%;
-            max-width: 800px;
+            max-width: 600px;
             min-height: 700px;
             padding: 20px;
             text-align: center;
@@ -146,33 +146,108 @@
 
         .settings-content {
             display: flex;
-            max-width: 700px;
-            height: 75%;
+            max-width: 600px;
+            height: 80%;
             border-radius: 10px;
-            margin-top: 20px;
             margin-left: 40px;
             margin-right: 40px;
             font-size: 16px;
             background-color: #4a4a4a;
             color: #fff;
+            border: solid 2px #fff;
+        }
+
+        .settings-content-user-settings {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            justify-content: center;
+            align-items: center;
+            max-width: 510px;
+            min-width: 510px;
+            height: 100%;
+        }
+
+        .settings-form {
+            display:flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .form-group label {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .form-group input {
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #4a4a4a;
+            color: #fff;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .form-group input:focus {
+            border-color: #fff;
+            outline: none;
+        }
+
+        .settings-submit-button {
+            padding: 10px 20px;
+            background-color: #707070;
+            color: #fff;
+            border: solid 2px #242424;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .settings-submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        input[readonly] {
+            background-color: #4a4a4a;
+            color: #fff;
+            cursor: not-allowed
         }
 
         .settings-content-delete-button {
             display: flex;
-            top: 10px;
-            left: 10px;
-            font-size: 16px;
-            color: #9f1a1a;
-            background-color: #4a4a4a;
-            text-decoration: underline;
+            position: relative;
+            left: -100%;
+            top: 102.5%;
+            font-size: 14px;
+            color: #fff;
+            background-color: #9f1a1a55;
             font-weight: bold;
             cursor: pointer;
             padding: 10px;
-            border: solid 2px #9f1a1a;
+            border: solid 1px #fff;
             height: 40px;
-            width: 140px;
+            min-width: 135px;
             border-radius: 10px;
             text-align: center;
+            align-self: flex-start;
         }
 
         /* Delete form popup styling */
@@ -275,23 +350,64 @@
     <!-- Settings container -->
         <div class="settings-container">
             <h1>User Settings</h1>
-            <div class="settings-content">
-                <!--delete account button-->
-                <button class="settings-content-delete-button" onclick="showPopup('delete-form-popup')">Delete account</button> <!-- Delete account button, opens a form to complete action -->
-                
-                <!--delete account form popup-->  
-                <div class="delete-form-popup" id="delete-form-popup">  
-                    <div class="delete-form-popup-content">
-                        <form action="delete_account" method="POST">
+                <div class="settings-content">
+                    <div class="settings-content-user-settings">
+                        <form action="/update_settings" method="POST" class="settings-form">
                             {% csrf_token %}
-                            <h2>Are you sure you want to delete your account?</h2>
-                            <button class="delete-form-popup-close-button" onclick="closePopup()">Cancel</button>
-                            <button class="delete-form-popup-submit-button" type="submit" onclick="closePopup()">Delete</button>
-                         </form>
+                            <div class="form-group">
+                                <h2 for="username">Username:</h2>
+                                <input type="text" id="username" name="username" value="{{ account_name }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <h2 for="first_name">First Name:</h2>
+                                <input type="text" id="first_name" name="first_name" placeholder="Enter first name" value="{{ first_name }}">
+                            </div>
+                            <div class="form-group">
+                                <h2 for="last_name">Last Name:</h2>
+                                <input type="text" id="last_name" name="last_name" placeholder="Enter last name" value="{{ last_name }}">
+                            </div>
+                            <div class="form-group">
+                                <h2 for="password">New Password:</h2>
+                                <input type="password" id="password" name="password" placeholder="Enter new password" required>
+                            </div>
+                            <div class="form-group">
+                                <h2 for="confirm-password">Confirm Password:</h2>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password" required>
+                            </div>
+                            <div class="form-group">
+                                <h2 for="email">Add Email:</h2>
+                                <input type="email" id="email" name="email" value="{{ email }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="settings-submit-button">Save Changes</button>
+                            </div>
+                        </form>
                     </div>
-                </div>
+
+                <!--<div class="settings-content">
+                    <div class="settings-content-user-settings">
+                        <h2>Username: {{ account_name }} </h2>
+                        <h2>Password:</h2>
+                        <h2>Email:</h2>
+                    </div>-->
+
+
+            <!--delete account button-->
+            <button class="settings-content-delete-button" onclick="showPopup('delete-form-popup')">Delete account</button> <!-- Delete account button, opens a form to complete action -->
+            
+            <!--delete account form popup-->  
+            <div class="delete-form-popup" id="delete-form-popup">  
+                <div class="delete-form-popup-content">
+                    <form action="delete_account" method="POST">
+                        {% csrf_token %}
+                        <h2>Are you sure you want to delete your account?</h2>
+                        <button class="delete-form-popup-close-button" onclick="closePopup()">Cancel</button>
+                        <button class="delete-form-popup-submit-button" type="submit" onclick="closePopup()">Delete</button>
+                        </form>
+                </div> <!--For some reason, closing the popup doesn't work properly-->
             </div>
         </div>
+    </div>
 
         <script>
             function showPopup(popupId) {
