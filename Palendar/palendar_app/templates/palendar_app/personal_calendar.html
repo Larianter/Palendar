@@ -442,8 +442,9 @@
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
-            <a href="personal_calendar.html">Home</a> <!-- link to the home page -->
-            <b href="logIn.html">Log Out</b> <!-- link to logout(?) -->
+            <a href="home.html">Home</a> <!-- link to the home page -->
+            <a href="settings.html">Settings</a> <!-- link to settings -->
+            <b href="logout.html">Log Out</b> <!-- link to logout(?) -->
           </div>
         </div>
       </div>
@@ -455,7 +456,7 @@
         <body>
           {% if user_events %}
             {% for event in user_events %}    <!-- Iterates through "user_events" returned from View -->
-              <div class="this-week-box-1">
+          <div class="this-week-box-1">
               <h2>{{ event.event_name }}</h2>
               <p>{{ event.event_desc }}</p>
               <p>{{ event.event_date }}</p>
