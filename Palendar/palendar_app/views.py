@@ -7,6 +7,9 @@ def login(request):
     #render login page for palendar
     return render(request, 'palendar_app/logIn.html')
 
+def settings(request):
+    return render(request, 'palendar_app/settings.html')
+
 def register(request):
     #registers new user account
     if request.method == "POST":
@@ -26,7 +29,6 @@ def inlogger(request):
             global current_user_id 
             current_user_id = Users.objects.get(account_name = current_user)
             user_events = EventDetails.objects.filter(userID=current_user_id)
-            #current_events = "\n".join([str(event) for event in user_events]) !! Deprecated !!
             response = render(request, 'palendar_app/personal_calendar.html', {'account_name': current_user,'user_events': user_events})
         else:
             response = HttpResponse("credentials not found")
