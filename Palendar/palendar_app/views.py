@@ -54,20 +54,16 @@ def eventAdder(request):
 
 
 def settings(request):
+    global current_user_id
+
+    if current_user_id is None:
+        return redirect('login')  # Redirect to login if user is not logged in
+
     try:
-        # Retrieve current_user_id from session
-        current_user_id = request.session.get('current_user_id')
-
-        if not current_user_id:
-            return redirect('login')  # Redirect to login if user is not logged in
-
         # Fetch the User instance
-        user = Users.objects.get(userID=current_user_id)
+        user = Users.objects.get(userID=current_user_id.userID)
 
         # Pass the username to the template
         return render(request, 'palendar_app/settings.html', {'account_name': user.account_name})
     except Users.DoesNotExist:
         return redirect('login')
-
-
-
