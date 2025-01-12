@@ -52,5 +52,22 @@ def eventAdder(request):
 
         return redirect('personal-calendar')
 
+
 def settings(request):
-    return render(request, 'palendar_app/settings.html')
+    try:
+        # Retrieve current_user_id from session
+        current_user_id = request.session.get('current_user_id')
+
+        if not current_user_id:
+            return redirect('login')  # Redirect to login if user is not logged in
+
+        # Fetch the User instance
+        user = Users.objects.get(userID=current_user_id)
+
+        # Pass the username to the template
+        return render(request, 'palendar_app/settings.html', {'account_name': user.account_name})
+    except Users.DoesNotExist:
+        return redirect('login')
+
+
+
