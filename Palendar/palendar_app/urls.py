@@ -8,5 +8,6 @@ urlpatterns = [
     path("register", views.register, name='register'), #registration
     path("login", views.inlogger, name='inlogger'), #logging in
     path("add_event", views.eventAdder, name='eventAdder'), #event creation
+    path("personal-calendar", views.personalCalendar, name='personal-calendar'),
     path("settings", views.settings, name='settings'), #account settings
 ]
