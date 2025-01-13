@@ -10,4 +10,5 @@ urlpatterns = [
     path("add_event", views.eventAdder, name='eventAdder'), #event creation
     path("personal-calendar", views.personalCalendar, name='personal-calendar'),
     path("settings", views.settings, name='settings'), #account settings
+    path("update_settings", views.addEmail, name='addEmail'),
 ]

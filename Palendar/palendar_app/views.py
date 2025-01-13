@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Users, EventDetails
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 
 # Create your views here.
 def login(request):
@@ -52,7 +53,6 @@ def eventAdder(request):
 
         return redirect('personal-calendar')
 
-
 def settings(request):
     global current_user_id
 
@@ -67,3 +67,26 @@ def settings(request):
         return render(request, 'palendar_app/settings.html', {'account_name': user.account_name})
     except Users.DoesNotExist:
         return redirect('login')
+
+def addEmail(request):
+    global current_user_id
+
+    if current_user_id is None:
+        return redirect('login')  # Redirect to login if user is not logged in
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            try:
+                # Update the email for the logged-in user
+                user = Users.objects.get(userID=current_user_id.userID)
+                user.email = email
+                user.save()  # Save the updated user instance
+            except Users.DoesNotExist:
+                return redirect('login')
+
+            return redirect('settings')
+        else:
+            return redirect('settings')
+
+    return HttpResponseBadRequest('Invalid request method.')
