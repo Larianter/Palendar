@@ -54,7 +54,7 @@ def eventAdder(request):
         new_event.save()
 
         return redirect('personal-calendar')
-
+    
 def settings(request):
     global current_user_id
 
@@ -114,3 +114,10 @@ def delete_account(request):
             return redirect('settings')  # Redirect to settings if user not found
     else:
         return HttpResponseBadRequest("Invalid request method.")
+
+def groupCalendar(request):
+    if current_user_id:
+        user_events = EventDetails.objects.filter(userID=current_user_id)
+        return render(request, 'palendar_app/group_calendar.html', {'account_name': current_user_id.account_name,'user_events': user_events})
+    else:
+        return redirect('personal-calendar')
