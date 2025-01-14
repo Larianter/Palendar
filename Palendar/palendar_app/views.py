@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Users, EventDetails
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
+from django.contrib import messages
 
 current_user_id = None
 
@@ -16,10 +17,14 @@ def register(request):
         username = request.POST["new-username"]
         password = request.POST["new-password"]
 
-        new_user = Users(account_name = username, password = password)
-        new_user.save()
-        
-        return redirect('login')
+        if Users.objects.filter(account_name=request.POST['new-username']).exists():
+            messages.info(request, "Account name already in use.")
+            return render(request, 'palendar_app/logIn.html', {'error_message': "Account name already in use."})
+        else:
+            new_user = Users(account_name = username, password = password)
+            new_user.save()
+            messages.info(request, "Account suecessfully created!")
+            return render(request, 'palendar_app/logIn.html', {'error_message': "Account successfully created!"})
     
 def inlogger(request):
     #logs the user in
@@ -28,7 +33,6 @@ def inlogger(request):
             current_user = request.POST['uname']
             global current_user_id 
             current_user_id = Users.objects.get(account_name = current_user)
-            #user_events = EventDetails.objects.filter(userID=current_user_id)
             response = redirect('personal-calendar')
         else:
             response = HttpResponse("credentials not found")
