@@ -340,8 +340,8 @@
           <div class="dropdown">
             <button class="dropbtn">☰</button>
             <div class="dropdown-content">
-              <a href="home.html">Home</a> <!-- link to the home page -->
-              <b href="logout.html">Log Out</b> <!-- link to logout(?) -->
+              <a href="personal-calendar">Home</a> <!-- link to the home page -->
+              <a href="logout" style="color: #9d6565; ">Log Out</a> <!-- link to logout -->
             </div>
           </div>
         </div>
@@ -395,19 +395,17 @@
             <!--delete account button-->
             <button class="settings-content-delete-button" onclick="showPopup('delete-form-popup')">Delete account</button> <!-- Delete account button, opens a form to complete action -->
             
-            <!--delete account form popup-->  
-            <div class="delete-form-popup" id="delete-form-popup">  
+            <div class="delete-form-popup" id="delete-form-popup">
                 <div class="delete-form-popup-content">
-                    <form action="delete_account" method="POST">
+                    <form action="{% url 'delete_account' %}" method="POST">
                         {% csrf_token %}
                         <h2>Are you sure you want to delete your account?</h2>
-                        <button class="delete-form-popup-close-button" onclick="closePopup()">Cancel</button>
-                        <button class="delete-form-popup-submit-button" type="submit" onclick="closePopup()">Delete</button>
-                        </form>
-                </div> <!--For some reason, closing the popup doesn't work properly-->
+                        <button type="button" class="delete-form-popup-close-button" onclick="closePopup()">Cancel</button>
+                        <button class="delete-form-popup-submit-button" type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </div>
+            
 
         <script>
             function showPopup(popupId) {

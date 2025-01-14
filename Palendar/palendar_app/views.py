@@ -3,6 +3,8 @@ from .models import Users, EventDetails
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 
+current_user_id = None
+
 # Create your views here.
 def login(request):
     #render login page for palendar
@@ -67,6 +69,11 @@ def settings(request):
         return render(request, 'palendar_app/settings.html', {'account_name': user.account_name})
     except Users.DoesNotExist:
         return redirect('login')
+    
+def logOut(request): # We be logging out here
+    global current_user_id 
+    current_user_id = None
+    return redirect('login')
 
 def addEmail(request):
     global current_user_id
@@ -90,3 +97,20 @@ def addEmail(request):
             return redirect('settings')
 
     return HttpResponseBadRequest('Invalid request method.')
+
+def delete_account(request):
+    global current_user_id
+
+    if request.method == "POST":
+        try:
+            # Find and delete the current user
+            user = Users.objects.get(userID=current_user_id.userID)
+            user.delete()
+            
+            # Clear the global current_user_id and redirect to login
+            current_user_id = None
+            return redirect('login')  # Redirect to login page after deletion
+        except Users.DoesNotExist:
+            return redirect('settings')  # Redirect to settings if user not found
+    else:
+        return HttpResponseBadRequest("Invalid request method.")
