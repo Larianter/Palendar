@@ -11,4 +11,5 @@ urlpatterns = [
     path("personal-calendar", views.personalCalendar, name='personal-calendar'),
     path("settings", views.settings, name='settings'), #account settings
     path("update_settings", views.addEmail, name='addEmail'),
+    path("delete_account", views.delete_account, name='delete_account'),
 ]
