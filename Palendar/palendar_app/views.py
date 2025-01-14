@@ -79,28 +79,39 @@ def logOut(request): # We be logging out here
     current_user_id = None
     return redirect('login')
 
-def addEmail(request):
-    global current_user_id
-
-    if current_user_id is None:
-        return redirect('login')  # Redirect to login if user is not logged in
-
+def addEmail(request):                                              #Still need to add password changing
     if request.method == 'POST':
         email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        user = Users.objects.get(userID=current_user_id.userID)
+
+        #update user info
         if email:
-            try:
-                # Update the email for the logged-in user
-                user = Users.objects.get(userID=current_user_id.userID)
-                user.email = email
-                user.save()  # Save the updated user instance
-            except Users.DoesNotExist:
-                return redirect('login')
+            user.email = email
+        if first_name:
+            user.first_name = first_name
+        if last_name:
+            user.last_name = last_name
 
-            return redirect('settings')
-        else:
-            return redirect('settings')
+        user.save()
 
-    return HttpResponseBadRequest('Invalid request method.')
+        return render(request, 'palendar_app/settings.html', {
+            'account_name': user.account_name,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'update_success': True
+        })
+    else:
+        user = Users.objects.get(userID=current_user_id.userID)
+        return render(request, 'palendar_app/settings.html', {
+            'account_name': user.account_name,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name
+        })
 
 def delete_account(request):
     global current_user_id

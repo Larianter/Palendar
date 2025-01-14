@@ -604,7 +604,7 @@
               <div class="event-popup-content">
                 <form action="add_event" method="POST">
                   {% csrf_token %}
-                  <button class="event-popup-close-button" onclick="closePopup()">X</button>
+                  <button class="event-popup-close-button" onclick="closePopup('event-popup')">X</button>
                   <h2>Add Event</h2>
                   <input type="text" placeholder="Event Name" name="event-name" required>
                   <input type="datetime-local" name="event-dateTime" required>

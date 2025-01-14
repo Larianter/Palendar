@@ -335,7 +335,7 @@
               <a href="group-calendar">Group Calendar1</a>
             </div>
           </div>
-  
+
           <div class="dropdown">
             <button class="dropbtn">☰</button>
             <div class="dropdown-content">
@@ -380,6 +380,10 @@
                             <div class="form-group">
                                 <button type="submit" class="settings-submit-button">Save Changes</button>
                             </div>
+
+                            {% if update_success %}
+                                <p style="color: green; margin-left: 50px; margin-bottom; 10px">Changes saved successfully!</p>
+                            {% endif %}
                         </form>
                     </div>
 
