@@ -311,6 +311,20 @@
        display: block;
       }
 
+      .group-action-button {
+        padding: 5px 10px;
+        background-color: 555;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .group-action-button:hover {
+        background-color: #666;
+      }
+
       /* Group calendars button and dropdown styling */
       .group-calendar-dropdown {
         position: relative;
@@ -353,6 +367,72 @@
         display: block;
       }
 
+/* Create group popup styling */
+      .join-group-popup {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .join-group-popup-content {
+        position: relative;
+        background-color: #242424;
+        padding: 20px 20px 20px;
+        padding-top: 40px;
+        border-radius: 10px;
+        width: 400px;
+        max-width: 400px;
+        min-width: 400px;
+        height: 400px; 
+        min-height: 400px;
+        align-self: center;
+        display: inline-block;
+      }
+
+      .join-group-popup.hidden {
+        display: none;
+      }
+
+/* Join Group popup styling */
+
+      .create-group-popup {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .create-group-popup-content {
+        position: relative;
+        background-color: #242424;
+        padding: 20px 20px 20px;
+        padding-top: 40px;
+        border-radius: 10px;
+        width: 400px;
+        max-width: 400px;
+        min-width: 400px;
+        height: 400px; 
+        min-height: 400px;
+        align-self: center;
+        display: inline-block;
+      }
+
+      .create-group-popup.hidden {
+        display: none;
+      }
 
 
  /* Event popup styling */
@@ -434,21 +514,53 @@
           <button class="group-calendar-button">All Calendars</button>
           <div class="group-calendar-dropdown-content">
             <a href="personal-calendar">Personal Calendar</a>
-            <a href="group-calendar">Group Calendar</a>
-
+            <a href="group_calendar(1).html">Group Calendar1</a>
+            <a href="group_calendar(2).html">Group Calendar2</a>
+            <div style="margin-top: 10px;">
+              <button class="group-action-button" onclick="showPopup('join-group-popup')">Join Group</button>
+              <button class="group-action-button" onclick="showPopup('create-group-popup')">Create Group</button>
+            </div>
           </div>
         </div>
 
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
-            <a href="personal-calendar">Home</a> <!-- link to the home page -->
+            <a href="home.html">Home</a> <!-- link to the home page -->
             <a href="settings">Settings</a> <!-- link to settings -->
-            <a href="logout" style="color: #9d6565;" >Log Out</a> <!-- link to logout(?) -->
+            <b href="logout.html">Log Out</b> <!-- link to logout(?) -->
           </div>
         </div>
-      </div>
 
+
+        <!-- Join Group Popup -->
+        <div class="join-group-popup hidden" id="join-group-popup">
+          <div class="join-group-popup-content">
+              <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
+              <h2>Join Group</h2>
+              <form action="join_group" method="POST">
+                  {% csrf_token %}
+                  <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
+                  <button type="submit">Join</button>
+              </form>
+          </div>
+        </div>
+
+        <!-- Create Group Popup -->
+        <div class="create-group-popup hidden" id="create-group-popup">
+          <div class="create-group-popup-content">
+              <button class="create-group-popup-close-button" onclick="closePopup('create-group-popup')">X</button>
+              <h2>Create Group</h2>
+              <form action="create_group" method="POST">
+                  {% csrf_token %}
+                  <input type="text" placeholder="Enter Group Name" name="group-name" required>
+                  <p>Share this code with others to join:</p>
+                  <div id="group-calendar-code">[Generated_Code]</div>
+                  <button type="submit">Create</button>
+              </form>
+          </div>
+        </div>
+    </div>
 
       <!-- Co-parent container aka "this week" -->
       <div class="co-parent-container">
@@ -600,7 +712,6 @@
       function closePopup() {
         document.getElementById("event-popup").style.display = "none";
       }
-
 
     </script>
   </body>
