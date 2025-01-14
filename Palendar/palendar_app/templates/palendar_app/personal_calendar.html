@@ -438,7 +438,7 @@
         height: 400px; 
         min-height: 400px;
         align-self: center;
-        display: inline-block;
+        box-sizing: border-box;
       }
 
       .create-group-popup.hidden {
@@ -545,7 +545,7 @@
 
 
         <!-- Join Group Popup -->
-        <div class="join-group-popup hidden" id="join-group-popup">
+        <div id="join-group-popup" class="join-group-popup hidden">
           <div class="join-group-popup">
             <div class="join-group-popup-content">
                 <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
@@ -560,7 +560,7 @@
         </div>
 
         <!-- Create Group Popup -->
-        <div class="create-group-popup hidden" id="create-group-popup">
+        <div id="create-group-popup" class="create-group-popup hidden">
           <div class="create-group-popup">
             <div class="create-group-popup-content">
                 <button class="create-group-popup-close-button" onclick="closePopup('create-group-popup')">X</button>
@@ -720,12 +720,12 @@
 
       renderCalendar(currentYear, currentMonth);
 
-      function showPopup() {
-        document.getElementById("event-popup").style.display = "flex";
+      function showPopup(pop_up) {
+        document.getElementById(pop_up).style.display = "flex";
       }
       
-      function closePopup() {
-        document.getElementById("event-popup").style.display = "none";
+      function closePopup(pop_up) {
+        document.getElementById(pop_up).style.display = "none";
       }
 
     </script>

@@ -538,10 +538,10 @@
       </div>
 
       <!-- Join Group Popup -->
-      <div class="join-group-popup hidden" id="join-group-popup">
+      <div id="join-group-popup" class="join-group-popup hidden">
         <div class="join-group-popup-content">
-            <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
             <h2>Join Group</h2>
+            <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
             <form action="join_group" method="POST">
                 {% csrf_token %}
                 <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
@@ -718,6 +718,11 @@
         document.getElementById("event-popup").style.display = "none";
       }
 
+      //Open join group popup
+      document.getElementById("join-group-button").addEventListener("click", function() {
+        const popup = document.getElementById("join-group-popup");
+        popup.classList.remove("hidden");
+      })
 
     </script>
   </body>
