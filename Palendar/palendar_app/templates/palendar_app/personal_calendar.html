@@ -368,16 +368,16 @@
       }
 
       .group-action-button {
-        font-size: 16px;
+        font-size: 15px;
         color: #fff;
         background-color: transparent;
         text-decoration: underline;
         cursor: pointer;
-        padding: 10px;
+        padding: 5px;
         border: solid 2px #fff;
         border-radius: 10px;
       }
-      
+
 /* Create group popup styling */
       .join-group-popup {
         display: none; /* Hidden by default */
@@ -546,29 +546,33 @@
 
         <!-- Join Group Popup -->
         <div class="join-group-popup hidden" id="join-group-popup">
-          <div class="join-group-popup-content">
-              <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
-              <h2>Join Group</h2>
-              <form action="join_group" method="POST">
-                  {% csrf_token %}
-                  <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
-                  <button type="submit">Join</button>
-              </form>
+          <div class="join-group-popup">
+            <div class="join-group-popup-content">
+                <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
+                <h2>Join Group</h2>
+                <form action="join_group" method="POST">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
           </div>
         </div>
 
         <!-- Create Group Popup -->
         <div class="create-group-popup hidden" id="create-group-popup">
-          <div class="create-group-popup-content">
-              <button class="create-group-popup-close-button" onclick="closePopup('create-group-popup')">X</button>
-              <h2>Create Group</h2>
-              <form action="create_group" method="POST">
-                  {% csrf_token %}
-                  <input type="text" placeholder="Enter Group Name" name="group-name" required>
-                  <p>Share this code with others to join:</p>
-                  <div id="group-calendar-code">[Generated_Code]</div>
-                  <button type="submit">Create</button>
-              </form>
+          <div class="create-group-popup">
+            <div class="create-group-popup-content">
+                <button class="create-group-popup-close-button" onclick="closePopup('create-group-popup')">X</button>
+                <h2>Create Group</h2>
+                <form action="create_group" method="POST">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Enter Group Name" name="group-name" required>
+                    <p>Share this code with others to join:</p>
+                    <div id="group-calendar-code">[Generated_Code]</div>
+                    <button type="submit">Create</button>
+                </form>
+            </div>
           </div>
         </div>
     </div>
