@@ -123,6 +123,14 @@
     <title>Log In or Create an Account</title>
   </head>
   <body>
+    {% if messages %}   <!-- Generic message handler from the django documentation -->
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+         
+        {% endfor %}
+    
+    {% endif %}
+
     <div class="page-container">
       <h1>Log In or Create an Account</h1>
       <form action="login" method="POST">
@@ -188,19 +196,13 @@
         console.log("Confirm Password:", confirmPassword);
 
         if (password !== confirmPassword) {
-          alert("Passwords do not match. Please try again.");
           return false;
         } 
         
         else {
-        alert("Account created successfully!"); 
         closePopup(); // Close the popup on successful validation.
         return true;
         }
-      }
-
-      function accountAlreadyExists() {
-        
       }
     </script>
   </body>
