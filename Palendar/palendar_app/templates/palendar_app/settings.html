@@ -400,7 +400,9 @@
                     <form action="{% url 'delete_account' %}" method="POST">
                         {% csrf_token %}
                         <h2>Are you sure you want to delete your account?</h2>
-                        <button type="button" class="delete-form-popup-close-button" onclick="closePopup()">Cancel</button>
+                        <!-- Cancel Button: Redirects to the settings page -->
+                        <a href="{% url 'settings' %}" class="delete-form-popup-close-button">Cancel</a>
+                        <!-- Submit Button: Deletes the account -->
                         <button class="delete-form-popup-submit-button" type="submit">Delete</button>
                     </form>
                 </div>
