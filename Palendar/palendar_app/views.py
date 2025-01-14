@@ -70,7 +70,10 @@ def settings(request):
     except Users.DoesNotExist:
         return redirect('login')
     
-
+def logOut(request): # We be logging out here
+    global current_user_id 
+    current_user_id = None
+    return redirect('login')
 
 def addEmail(request):
     global current_user_id
