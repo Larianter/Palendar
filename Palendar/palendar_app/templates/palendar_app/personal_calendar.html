@@ -7,7 +7,7 @@
         background-color: #3a3a3a;
         font-family: Arial, sans-serif;
         margin: 0;
-        height: 100vh;
+        height: 135vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -392,18 +392,39 @@
         align-items: center;
       }
 
+      .join-group-popup-close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .join-group-popup-content h2 {
+        position: absolute;
+        top: 10px;
+        left: 150px;
+        font-size: 25px;
+        align-self: center;
+      }
+
       .join-group-popup-content {
-        position: relative;
+        position: fixed;
         background-color: #242424;
         padding: 20px 20px 20px;
-        padding-top: 40px;
+        padding-top: 80px;
         border-radius: 10px;
         width: 400px;
         max-width: 400px;
         min-width: 400px;
-        height: 400px; 
-        min-height: 400px;
+        height: 100px; 
+        min-height: 100px;
         align-self: center;
+        flex-direction: row;
         display: inline-block;
       }
 
@@ -411,7 +432,7 @@
         display: none;
       }
 
-/* Join Group popup styling */
+/* Create Group popup styling */
 
       .create-group-popup {
         display: none; /* Hidden by default */
@@ -426,18 +447,31 @@
         align-items: center;
       }
 
+      .create-group-popup-close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
       .create-group-popup-content {
         position: relative;
         background-color: #242424;
         padding: 20px 20px 20px;
         padding-top: 40px;
         border-radius: 10px;
-        width: 400px;
-        max-width: 400px;
-        min-width: 400px;
+        width: 500px;
+        max-width: 500px;
+        min-width: 500px;
         height: 400px; 
         min-height: 400px;
         align-self: center;
+        align-content: center;
         box-sizing: border-box;
       }
 
@@ -549,11 +583,11 @@
           <div class="join-group-popup-content">
               <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
               <h2>Join Group</h2>
-              <form action="join_group" method="POST">
-                  {% csrf_token %}
-                  <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
-                  <button type="submit">Join</button>
-              </form>
+                <form action="join_group" method="POST">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
+                    <button type="submit">Join</button>
+                </form>
             </div>
           </div>
         </div>
