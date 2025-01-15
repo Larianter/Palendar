@@ -421,11 +421,32 @@
         width: 400px;
         max-width: 400px;
         min-width: 400px;
-        height: 100px; 
-        min-height: 100px;
+        height: 50px; 
+        min-height: 50px;
         align-self: center;
         flex-direction: row;
         display: inline-block;
+      }
+
+      .join-group-popup button {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border: solid 2px #fff;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+      }
+
+      .join-group-popup input {
+        background-color: #3a3a3a;
+        color: #fff;
+        height: 30px;
+        border-radius: 10px;
+        border: solid 2px #fff;
+        font-size: 15px;
       }
 
       .join-group-popup.hidden {
@@ -461,18 +482,50 @@
 
       .create-group-popup-content {
         position: relative;
+        color: #fff;
         background-color: #242424;
-        padding: 20px 20px 20px;
+        padding: 20px 20px 20px 20px;
         padding-top: 40px;
         border-radius: 10px;
-        width: 500px;
-        max-width: 500px;
-        min-width: 500px;
-        height: 400px; 
-        min-height: 400px;
+        width: 350px;
+        max-width: 350px;
+        min-width: 350px;
+        height: 250px; 
+        min-height: 250px;
         align-self: center;
         align-content: center;
+        flex-direction: row;
+        display: inline-block;
         box-sizing: border-box;
+      }
+
+      .create-group-popup input {
+        background-color: #3a3a3a;
+        color: #fff;
+        height: 30px;
+        border-radius: 10px;
+        border: solid 2px #fff;
+        font-size: 15px;
+      }
+
+      .create-group-popup-content h2 {
+        position: absolute;
+        top: 10px;
+        left: 100px;
+        font-size: 25px;
+        align-self: center;
+        color: #fff;
+      }
+
+      .create-group-popup button {
+        font-size: 15px;
+        color: #fff;
+        background-color: transparent;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 10px;
+        border: solid 2px #fff;
+        border-radius: 10px;
       }
 
       .create-group-popup.hidden {
@@ -601,7 +654,7 @@
                   {% csrf_token %}
                   <input type="text" placeholder="Enter Group Name" name="group-name" required>
                   <p>Share this code with others to join:</p>
-                  <div id="group-calendar-code">[Generated_Code]</div>
+                  <div id="group-calendar-code">{{Generated_Code}}</div>
                   <button type="submit">Create</button>
               </form>
           </div>
