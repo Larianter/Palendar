@@ -369,7 +369,7 @@
         border: solid 2px #fff;
         border-radius: 10px;
       }
-/* Create group popup styling */
+/* Join group popup styling */
 .join-group-popup {
         display: none; /* Hidden by default */
         position: fixed;
@@ -383,26 +383,68 @@
         align-items: center;
       }
 
+      .join-group-popup-close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .join-group-popup-content h2 {
+        position: absolute;
+        top: 10px;
+        left: 150px;
+        font-size: 25px;
+        align-self: center;
+      }
+
       .join-group-popup-content {
         position: relative;
         background-color: #242424;
         padding: 20px 20px 20px;
-        padding-top: 40px;
+        padding-top: 80px;
         border-radius: 10px;
         width: 400px;
         max-width: 400px;
         min-width: 400px;
-        height: 400px; 
-        min-height: 400px;
+        height: 50px; 
+        min-height: 50px;
         align-self: center;
+        flex-direction: row;
         display: inline-block;
+      }
+
+      .join-group-popup button {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border: solid 2px #fff;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+      }
+
+      .join-group-popup input {
+        background-color: #3a3a3a;
+        color: #fff;
+        height: 30px;
+        border-radius: 10px;
+        border: solid 2px #fff;
+        font-size: 15px;
       }
 
       .join-group-popup.hidden {
         display: none;
       }
 
-/* Join Group popup styling */
+/* Create Group popup styling */
 
       .create-group-popup {
         display: none; /* Hidden by default */
@@ -417,19 +459,65 @@
         align-items: center;
       }
 
+      
+      .create-group-popup-close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
       .create-group-popup-content {
         position: relative;
+        color: #fff;
         background-color: #242424;
         padding: 20px 20px 20px;
         padding-top: 40px;
         border-radius: 10px;
-        width: 400px;
-        max-width: 400px;
-        min-width: 400px;
-        height: 400px; 
-        min-height: 400px;
+        width: 350px;
+        max-width: 350px;
+        min-width: 350px;
+        height: 250px; 
+        min-height: 250px;
         align-self: center;
+        align-content: center;
+        flex-direction: row;
         display: inline-block;
+        box-sizing: border-box;
+      }
+
+      .create-group-popup input {
+        background-color: #3a3a3a;
+        color: #fff;
+        height: 30px;
+        border-radius: 10px;
+        border: solid 2px #fff;
+        font-size: 15px;
+      }
+
+      .create-group-popup-content h2 {
+        position: absolute;
+        top: 10px;
+        left: 100px;
+        font-size: 25px;
+        align-self: center;
+        color: #fff;
+      }
+
+      .create-group-popup button {
+        font-size: 15px;
+        color: #fff;
+        background-color: transparent;
+        text-decoration: underline;
+        cursor: pointer;
+        padding: 10px;
+        border: solid 2px #fff;
+        border-radius: 10px;
       }
 
       .create-group-popup.hidden {
@@ -540,18 +628,19 @@
       <!-- Join Group Popup -->
       <div id="join-group-popup" class="join-group-popup hidden">
         <div class="join-group-popup-content">
-            <h2>Join Group</h2>
             <button class="join-group-popup-close-button" onclick="closePopup('join-group-popup')">X</button>
-            <form action="join_group" method="POST">
-                {% csrf_token %}
-                <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
-                <button type="submit">Join</button>
-            </form>
+            <h2>Join Group</h2>
+              <form action="join_group" method="POST">
+                  {% csrf_token %}
+                  <input type="text" placeholder="Enter Group Code" name="group-calendar-code" required>
+                  <button type="submit">Join</button>
+              </form>
+          </div>
         </div>
       </div>
 
       <!-- Create Group Popup -->
-      <div class="create-group-popup hidden" id="create-group-popup">
+      <div id="create-group-popup" class="create-group-popup hidden">
         <div class="create-group-popup-content">
             <button class="create-group-popup-close-button" onclick="closePopup('create-group-popup')">X</button>
             <h2>Create Group</h2>
@@ -559,7 +648,7 @@
                 {% csrf_token %}
                 <input type="text" placeholder="Enter Group Name" name="group-name" required>
                 <p>Share this code with others to join:</p>
-                <div id="group-calendar-code">[Generated_Code]</div>
+                <div id="group-calendar-code">{{Generated_Code}}</div>
                 <button type="submit">Create</button>
             </form>
         </div>
@@ -710,19 +799,13 @@
 
       renderCalendar(currentYear, currentMonth);
 
-      function showPopup() {
-        document.getElementById("event-popup").style.display = "flex";
+      function showPopup(pop_up) {
+        document.getElementById(pop_up).style.display = "flex";
       }
       
-      function closePopup() {
-        document.getElementById("event-popup").style.display = "none";
+      function closePopup(pop_up) {
+        document.getElementById(pop_up).style.display = "none";
       }
-
-      //Open join group popup
-      document.getElementById("join-group-button").addEventListener("click", function() {
-        const popup = document.getElementById("join-group-popup");
-        popup.classList.remove("hidden");
-      })
 
     </script>
   </body>
