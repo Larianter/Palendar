@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Users, EventDetails
+from .models import Users, EventDetails, GroupCalendar
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.contrib import messages
@@ -132,7 +132,29 @@ def delete_account(request):
 
 def groupCalendar(request):
     if current_user_id:
-        user_events = EventDetails.objects.filter(userID=current_user_id)
-        return render(request, 'palendar_app/group_calendar.html', {'account_name': current_user_id.account_name,'user_events': user_events})
+        group_members = GroupCalendar.objects.values_list('members', flat=True)
+        group_events = EventDetails.objects.filter(userID__in=group_members)
+        current_group = GroupCalendar.objects.get(members=current_user_id)
+        return render(request, 'palendar_app/group_calendar.html', {'account_name': current_user_id.account_name,'group_events': group_events, 'group_calendar_name': current_group.group_name})
     else:
         return redirect('personal-calendar')
+    
+def createGroup(request):
+    groupName = request.POST["group-name"]
+
+    new_group = GroupCalendar(group_name = groupName)
+    new_group.save()
+
+    return redirect('personal-calendar')
+
+def joinGroup(request):
+    group_Name = request.POST["group-calendar-code"]
+    try:
+        group = GroupCalendar.objects.get(group_name = group_Name)
+    except:
+        return HttpResponse("Group Not Found")          #Placeholder... or is it?
+
+    group.members.add(current_user_id)
+    group.save()
+
+    return redirect('personal-calendar')

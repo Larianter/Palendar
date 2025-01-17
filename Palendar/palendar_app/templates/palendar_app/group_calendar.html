@@ -7,7 +7,7 @@
         background-color: #3a3a3a;
         font-family: Arial, sans-serif;
         margin: 0;
-        height: 135vh;
+        height: 125vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -604,8 +604,7 @@
           <button class="group-calendar-button">All Calendars</button>
           <div class="group-calendar-dropdown-content">
             <a href="personal-calendar">Personal Calendar</a>
-            <a href="group_calendar(1).html">Group Calendar1</a>
-            <a href="group_calendar(2).html">Group Calendar2</a>
+            <a href="group-calendar">Group Calendar</a>
             <div style="margin-top: 10px;">
               <button class="group-action-button" onclick="showPopup('join-group-popup')">Join Group</button>
               <button class="group-action-button" onclick="showPopup('create-group-popup')">Create Group</button>
@@ -618,9 +617,9 @@
         <div class="dropdown">
           <button class="dropbtn">☰</button>
           <div class="dropdown-content">
-            <a href="home.html">Home</a> <!-- link to the home page -->
+            <a href="home">Home</a> <!-- link to the home page -->
             <a href="settings">Settings</a> <!-- link to settings -->
-            <b href="logout.html">Log Out</b> <!-- link to logout(?) -->
+            <a href="logout" style="color: #9d6565;">Log Out</a> <!-- link to logout(?) -->
           </div>
         </div>
       </div>
@@ -659,8 +658,8 @@
       <div class="co-parent-container">
         <h1>This Week</h1>
         <body>
-          {% if user_events %}
-            {% for event in user_events %}    <!-- Iterates through "user_events" returned from View -->
+          {% if group_events %}
+            {% for event in group_events %}    <!-- Iterates through "group_events" returned from View -->
           <div class="this-week-box-1">
               <h2>{{ event.event_name }}</h2>
               <p>{{ event.event_desc }}</p>
@@ -676,8 +675,8 @@
 
       <!-- Group Calendar -->
       <div class="page-container">
-        <h3> {{group.calendar_code}}</h3>
-        <h1>{{group.calendar_name}}</h1>
+        <h3> {{group_calendar_code}}</h3>
+        <h1>{{group_calendar_name}}</h1>
         <button class="add-event-button" onclick="showPopup('event-popup')">+ </button> <!-- Add Event button -->
             <div class="event-popup" id="event-popup">
               <div class="event-popup-content">

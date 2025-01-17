@@ -25,5 +25,4 @@ class GroupCalendar(models.Model):
     #stores all users' events in group
     groupID = models.AutoField(primary_key=True)
     group_name = models.CharField(max_length=24)
-    members = models.ForeignKey(Users, on_delete=models.CASCADE)
-    eventID = models.ForeignKey(EventDetails, on_delete=models.CASCADE)
+    members = models.ManyToManyField(Users, related_name='groups', null=True)

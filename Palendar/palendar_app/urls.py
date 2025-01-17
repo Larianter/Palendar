@@ -13,5 +13,7 @@ urlpatterns = [
     path("update_settings", views.addEmail, name='addEmail'),
     path("delete_account", views.delete_account, name='delete_account'),
     path("logout", views.logOut, name='logout'),
-    path("group-calendar", views.groupCalendar, name='group-calendar')
+    path("group-calendar", views.groupCalendar, name='group-calendar'),
+    path("create_group", views.createGroup, name='create_group'),
+    path("join_group", views.joinGroup, name='join_group'),
 ]
